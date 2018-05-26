@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
@@ -29,6 +30,9 @@ import com.ryanair.flights.model.Interconnection;
 @ContextConfiguration(classes = { FlightSearchConfig.class })
 @WebAppConfiguration
 public class FlightSearchControllerTest {
+
+	@Autowired
+	private CacheManager cacheManager;
 
 	@Autowired
 	private FlightSearchController flightSearchController;
@@ -70,7 +74,9 @@ public class FlightSearchControllerTest {
 
 	@Test
 	public void testGetFlights2() throws Exception {
-
+		cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(c -> {
+			c.clear();});
+		
 		Resource resource = resourceLoader.getResource("classpath:/month.json");
 		Resource resourceRoutes = resourceLoader.getResource("classpath:/routes.json");
 		MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
