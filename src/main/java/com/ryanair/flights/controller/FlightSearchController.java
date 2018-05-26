@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import com.ryanair.flights.exceptions.RetryHTTPException;
 import com.ryanair.flights.model.Day;
 import com.ryanair.flights.model.Flight;
@@ -52,6 +53,7 @@ public class FlightSearchController {
 			@RequestParam(name = "departureDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime,
 			@RequestParam(name = "arrivalDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrivalDateTime)
 			throws RetryHTTPException {
+		checkArgument(departureDateTime.isBefore(arrivalDateTime), "Departure date must be greater than arrival date.");
 		logger.info("Search Routes!!");
 		List<Interconnection> result = new LinkedList<Interconnection>();
 
