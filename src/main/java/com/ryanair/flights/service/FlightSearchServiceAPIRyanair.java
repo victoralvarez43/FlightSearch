@@ -45,12 +45,12 @@ public class FlightSearchServiceAPIRyanair implements FlightSearchService{
 
 	@Override
 	public List<Interconnection> flightSearch(String airportFrom, String airportTo, LocalDateTime departureDateTime,
-			LocalDateTime arrivalDateTime) throws RetryHTTPException {
+			LocalDateTime arrivalDateTime, int stops) throws RetryHTTPException {
 		checkArgument(departureDateTime.isBefore(arrivalDateTime), "Departure date must be greater than arrival date.");
 		logger.info("Search Routes!!");
 		List<Interconnection> result = new LinkedList<Interconnection>();
 
-		for (String route : routeSearch.getRoutes(airportFrom, airportTo, 1)) {
+		for (String route : routeSearch.getRoutes(airportFrom, airportTo, stops)) {
 			String[] codes = route.split("-");
 			List<Interconnection> resultByRoute = new LinkedList<Interconnection>();
 			generateRouteInterconnections(departureDateTime, arrivalDateTime, codes, 1, new ArrayList<Leg>(),

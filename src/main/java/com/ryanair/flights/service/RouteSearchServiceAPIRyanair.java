@@ -31,7 +31,7 @@ public class RouteSearchServiceAPIRyanair implements RouteSearchService {
 
 	private void searchRoute(Map<String, List<Route>> routes, String airportFrom, String airportTo, int stops,
 			Set<String> result, String ruta) {
-		if (stops >= 0) {
+		if (stops >= 0 && !ruta.contains(airportFrom)) {
 			ruta += airportFrom + "-";
 			if (routes.containsKey(airportFrom)) {
 				for (Route route : routes.get(airportFrom)) {

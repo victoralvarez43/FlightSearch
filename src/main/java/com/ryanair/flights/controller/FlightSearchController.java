@@ -27,8 +27,10 @@ public class FlightSearchController {
 	public List<Interconnection> flightSearch(@RequestParam(name = "departure") String airportFrom,
 			@RequestParam(name = "arrival") String airportTo,
 			@RequestParam(name = "departureDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime,
-			@RequestParam(name = "arrivalDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrivalDateTime)
+			@RequestParam(name = "arrivalDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrivalDateTime,
+			@RequestParam(name = "stops", required = false, defaultValue = "1") int stops)
 			throws RetryHTTPException {
-		return flightSearchService.flightSearch(airportFrom, airportTo, departureDateTime, arrivalDateTime);
+		return flightSearchService.flightSearch(airportFrom, airportTo, departureDateTime, arrivalDateTime, stops);
 	}
+	
 }

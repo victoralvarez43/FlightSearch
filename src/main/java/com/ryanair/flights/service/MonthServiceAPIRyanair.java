@@ -29,6 +29,7 @@ public class MonthServiceAPIRyanair implements MonthService {
 		return repository.getMonth(airportFrom, airportTo, year, month);
 	}
 
+	@Override
 	public Set<Month> getMonths(String airportFrom, String airportTo, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime) {
 		Set<Month> months = new HashSet<Month>();
@@ -36,11 +37,12 @@ public class MonthServiceAPIRyanair implements MonthService {
 		for (LocalDateTime initDate = departureDateTime; initDate.isBefore(arrivalDateTime);) {
 			try {
 				int monthSearch = initDate.getMonthValue();
+				int yearMonth = initDate.getYear();
 				// Add one month
 				initDate = initDate.plusMonths(1);
-				logger.info("Get Month: " + airportFrom + ", " + airportTo + ", " + initDate.getYear() + ", "
+				logger.info("Get Month: " + airportFrom + ", " + airportTo + ", " + yearMonth + ", "
 						+ monthSearch);
-				Month month = getMonth(airportFrom, airportTo, initDate.getYear(), monthSearch);
+				Month month = getMonth(airportFrom, airportTo, yearMonth, monthSearch);
 				months.add(month);
 
 			} catch (Exception e) {
