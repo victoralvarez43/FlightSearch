@@ -13,7 +13,7 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
   // Load spring web configuration
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] { WebConfig.class };
+    return new Class[] { FlightSearchConfig.class };
   }
 
   @Override
