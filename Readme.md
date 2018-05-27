@@ -4,27 +4,32 @@
 > 
  I have implemented a REST API for the search of flights, the following parameters have to be sent:
  > 
-departure: a departure airport IATA code
-departureDateTime: a departure datetime in the departure airport timezone in ISO format
-arrival: an arrival airport IATA code
-arrivalDateTime: an arrival datetime in the arrival airport timezone in ISO format
+-	departure: a departure airport IATA code
+-	departureDateTime: a departure datetime in the departure airport timezone in ISO format
+-	arrival: an arrival airport IATA code
+-	arrivalDateTime: an arrival datetime in the arrival airport timezone in ISO format
+
 > 
 I have added an optional parameter to indicate the maximum number of stops:
+
 > 
 stops: number of stops, by default it will be a maximum of 1 stop, but with this field you can specify the maximum number of stops.
 > 
 
 > Sequence diagram of our API
 
-![Sequence diagram](https://github.com/victoralvarez43/FlightSearch/tree/master/diagrams/secuenceImg.png)
+![Sequence diagram](https://raw.githubusercontent.com/victoralvarez43/FlightSearch/master/diagrams/secuenceImg.png)
 
 
 > To use the API you must make a get request like the following:
+
 >
 http://localhost:8080/flightSearch/interconnections?departure=DUB&arrival=WRO&departureDateTime=2018-06-01T07:00&arrivalDateTime=2018-06-01T21:50
+
 >
 This example will look for flights on the DUB-WRO route that are between the dates 2018-06-01T07: 00 and 2018-06-01T21: 500, and since the stop parameter has not been specified, you will have a maximum of 1 stop.
->
+
+```json
 [
     {
         "stops": 0,
@@ -72,13 +77,21 @@ This example will look for flights on the DUB-WRO route that are between the dat
         ]
     }
 ]
+```
+
+
 >
 For example if in the previous case we indicate the parameter stops=0:
+
 >
 http://localhost:8080/flightSearch/interconnections?departure=DUB&arrival=WRO&departureDateTime=2018-06-01T07:00&arrivalDateTime=2018-06-01T21:50&stops=0
+
 >
 Then only direct flights will be obtained:
+
 >
+
+```json
 [
     {
         "stops": 0,
@@ -92,29 +105,42 @@ Then only direct flights will be obtained:
         ]
     }
 ]
+```
+
 
 >
 To improve the performance i have configured 2 caches:
+
 >
 RouteCache: Cache the requests to the routes API, since there is only one API that obtains all the routes between airports, this cache only has 1 element.
 monthCache: Cache the requests to the months API, as maximum 50 searches of months will be saved.
+
 >
 With these caches we improve the performance in flight searches, since the operation that is slower: searching all routes between airports, will be cached and will be immediate.
+
 >
 The data will be cacheed the first time the request is made, in the following requests they will be immediate since they will be searched.
+
 >
 I have also configured a retry logic for requests to the APIS of routes and months:
+
 >
 @Retryable (value = {RetryHTTPException.class}, maxAttempts = 3, backoff = @Backoff (delay = 5000))
+
 >
 With this annotation it is indicated that if the RetryHTTPException exception is carried out, the retry will be carried out with a maximum of 3 retries and, in addition, between retries, 5000 msec (5 seconds) will be expected.
+
 >
 To execute the application it can be done by means of jetty and maven executing the following command:
+
 >
 - mvn jetty: run
+
 >
 And a jetty server will be lifted at port 8080.
+
 >
 Another way is to create the war package and use a server like tomcat or another, to generate the war it must be executed:
+
 >
 - mvn clean package
