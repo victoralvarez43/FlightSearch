@@ -122,6 +122,33 @@ Then only direct flights will be obtained:
 ]
 ```
 
+> Other example but this start in 2018 and end 2019
+
+```json
+[
+  -----
+  
+    {
+        "stops": 1,
+        "legs": [
+            {
+                "departureDateTime": **"2018-12-31T21:30"**,
+                "arrivalDateTime": **"2018-12-31T22:45"**,
+                "departureAirport": "DUB",
+                "arrivalAirport": "STN"
+            },
+            {
+                "departureDateTime": **"2019-01-02T13:30"**,
+                "arrivalDateTime": **"2019-01-02T16:55"**,
+                "departureAirport": "STN",
+                "arrivalAirport": "PMI"
+            }
+        ]
+    },
+    
+  -----
+]
+```
 
 >
 To improve the performance i have configured 2 caches:
