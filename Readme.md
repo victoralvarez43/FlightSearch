@@ -36,6 +36,13 @@ rest.endpoint.timeout.connect=15000
 rest.endpoint.timeout.read=15000
 ```
 
+> In the flightSearch.properties properties, the minimum time between flights is defined (hours):
+
+```java
+flightSearch.timebetweenflights=2
+```
+
+
 > To use the API you must make a get request like the following:
 
 >
