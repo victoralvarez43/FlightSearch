@@ -1,5 +1,7 @@
 package com.ryanair.flights.repository;
 
+import java.util.ArrayList;
+
 import java.util.Comparator;
 
 import org.apache.commons.logging.Log;
@@ -17,7 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import com.ryanair.flights.exceptions.RetryHTTPException;
 import com.ryanair.flights.model.Day;
 import com.ryanair.flights.model.Month;
-import com.ryanair.flights.utils.ExceptionUtils;
+import static com.ryanair.flights.utils.ExceptionUtils.isRetry;
+import static com.ryanair.flights.utils.ExceptionUtils.returnEmptyelement;
 
 @Component
 public class MonthRestRepository implements MonthRepository<Month> {
@@ -45,9 +48,17 @@ public class MonthRestRepository implements MonthRepository<Month> {
 			return response.getBody();
 		} catch (HttpStatusCodeException ex) {
 			logger.error("Error[" + ex.getStatusCode() + "]: " + ex.getResponseBodyAsString());
-			if (ExceptionUtils.isRetry(ex)) {
+			if (isRetry(ex)) {
 				throw new RetryHTTPException(ex.getMessage());
 			} else {
+				// if httpcode is 404 return empty month
+				if (returnEmptyelement(ex)) {
+					Month monthEmpty = new Month();
+					monthEmpty.setYear(year);
+					monthEmpty.setMonth(month);
+					monthEmpty.setDays(new ArrayList<Day>());
+					return monthEmpty;
+				}
 				throw ex;
 			}
 		}

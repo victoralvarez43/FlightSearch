@@ -26,4 +26,18 @@ public class ExceptionUtils {
 		}
 	}
 
+	/**
+	 * check if httpstatus is valid for create a empty element.
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	public static boolean returnEmptyelement(HttpStatusCodeException ex) {
+		if (HttpStatus.NOT_FOUND.equals(ex.getStatusCode())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
