@@ -126,27 +126,27 @@ Then only direct flights will be obtained:
 
 ```json
 [
-  -----
+  ...
   
     {
         "stops": 1,
         "legs": [
             {
-                "departureDateTime": **"2018-12-31T21:30"**,
-                "arrivalDateTime": **"2018-12-31T22:45"**,
+                "departureDateTime": "2018-12-31T21:30",
+                "arrivalDateTime": "2018-12-31T22:45",
                 "departureAirport": "DUB",
                 "arrivalAirport": "STN"
             },
             {
-                "departureDateTime": **"2019-01-02T13:30"**,
-                "arrivalDateTime": **"2019-01-02T16:55"**,
+                "departureDateTime": "2019-01-02T13:30",
+                "arrivalDateTime": "2019-01-02T16:55",
                 "departureAirport": "STN",
                 "arrivalAirport": "PMI"
             }
         ]
     },
     
-  -----
+  ...
 ]
 ```
 
