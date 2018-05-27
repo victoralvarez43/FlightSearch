@@ -24,6 +24,18 @@ stops: number of stops, by default it will be a maximum of 1 stop, but with this
 > Integrated git with travis CI: https://travis-ci.org/victoralvarez43/FlightSearch/builds
 >
 
+> The definition of the endpoints for the routes and months APIs is done in the restClient.properties properties:
+
+```java
+#Rest Route
+rest.ryanair.endpoint.routes=https://api.ryanair.com/core/3/routes/
+rest.ryanair.endpoint.month=https://api.ryanair.com/timetable/3/schedules/{airportFrom}/{airportTo}/years/{year}/months/{month}
+
+#Rest Connect
+rest.endpoint.timeout.connect=15000
+rest.endpoint.timeout.read=15000
+```
+
 > To use the API you must make a get request like the following:
 
 >
