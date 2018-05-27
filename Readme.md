@@ -21,6 +21,10 @@ stops: number of stops, by default it will be a maximum of 1 stop, but with this
 ![Sequence diagram](https://raw.githubusercontent.com/victoralvarez43/FlightSearch/master/diagrams/secuenceImg.png)
 
 
+>
+Integrated git with travis CI: https://travis-ci.org/victoralvarez43/FlightSearch/builds
+>
+
 > To use the API you must make a get request like the following:
 
 >
