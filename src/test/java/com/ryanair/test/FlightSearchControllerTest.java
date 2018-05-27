@@ -49,6 +49,10 @@ public class FlightSearchControllerTest {
 	@Test
 	public void testGetFlights() throws Exception {
 
+		// clean all caches
+		cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(c -> {
+			c.clear();});
+		
 		Resource resource = resourceLoader.getResource("classpath:/month.json");
 		Resource resourceRoutes = resourceLoader.getResource("classpath:/routes.json");
 		MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
@@ -74,6 +78,8 @@ public class FlightSearchControllerTest {
 
 	@Test
 	public void testGetFlights2() throws Exception {
+		
+		// clean all caches
 		cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(c -> {
 			c.clear();});
 		
