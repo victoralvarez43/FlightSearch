@@ -123,6 +123,7 @@ Then only direct flights will be obtained:
 ```
 
 > Other example but this start in 2018 and end 2019
+
 > http://localhost:8080/flightSearch/interconnections?departure=DUB&arrival=PMI&departureDateTime=2018-12-31T07:00&arrivalDateTime=2019-01-02T21:50
 
 ```json
