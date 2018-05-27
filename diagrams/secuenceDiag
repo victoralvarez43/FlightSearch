@@ -1,0 +1,17 @@
+@startuml
+actor User
+User -> FlightSearchController: interconnections airport from-to
+FlightSearchController -> FlightSearchService: flight Search
+FlightSearchService -> RouteSearchService: get routes
+RouteSearchService -> RouteRepository: get all routes
+RouteRepository -> RouteRepository: search rotes from-to
+RouteSearchService -> FlightSearchService: return routes from-to
+FlightSearchService -> MonthService: get months between from-to
+MonthService -> MonthRepository: get months between from-to
+MonthService -> FlightSearchService: return months between from-to
+FlightSearchService -> FlightSearchService: generate interconnections
+FlightSearchService -> FlightSearchController: return interconnections
+FlightSearchController -> User: return interconnections
+
+
+@enduml
