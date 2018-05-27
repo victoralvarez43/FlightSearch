@@ -20,7 +20,7 @@ import com.ryanair.flights.exceptions.RetryHTTPException;
 import com.ryanair.flights.model.Day;
 import com.ryanair.flights.model.Month;
 import static com.ryanair.flights.utils.ExceptionUtils.isRetry;
-import static com.ryanair.flights.utils.ExceptionUtils.returnEmptyelement;
+import static com.ryanair.flights.utils.ExceptionUtils.returnEmptyElement;
 
 @Component
 public class MonthRestRepository implements MonthRepository<Month> {
@@ -52,7 +52,7 @@ public class MonthRestRepository implements MonthRepository<Month> {
 				throw new RetryHTTPException(ex.getMessage());
 			} else {
 				// if httpcode is 404 return empty month
-				if (returnEmptyelement(ex)) {
+				if (returnEmptyElement(ex)) {
 					Month monthEmpty = new Month();
 					monthEmpty.setYear(year);
 					monthEmpty.setMonth(month);

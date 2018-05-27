@@ -32,7 +32,7 @@ public class ExceptionUtils {
 	 * @param ex
 	 * @return
 	 */
-	public static boolean returnEmptyelement(HttpStatusCodeException ex) {
+	public static boolean returnEmptyElement(HttpStatusCodeException ex) {
 		if (HttpStatus.NOT_FOUND.equals(ex.getStatusCode())) {
 			return true;
 		} else {
