@@ -2,6 +2,12 @@ package com.ryanair.flights.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Builder for create Legs.
+ * 
+ * @author victor
+ *
+ */
 public class LegBuilder {
 
 	private LocalDateTime departureDateTime;

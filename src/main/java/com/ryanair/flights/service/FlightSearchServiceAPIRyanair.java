@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.ryanair.flights.controller.FlightSearchController;
 import com.ryanair.flights.exceptions.RetryHTTPException;
 import com.ryanair.flights.model.Day;
 import com.ryanair.flights.model.Flight;
@@ -28,9 +27,9 @@ import com.ryanair.flights.model.Month;
 
 @Service()
 @Qualifier("flightSearchServiceAPIRyanair")
-public class FlightSearchServiceAPIRyanair implements FlightSearchService{
+public class FlightSearchServiceAPIRyanair implements FlightSearchService {
 
-   private static Log logger = LogFactory.getLog(FlightSearchController.class);
+	private static Log logger = LogFactory.getLog(FlightSearchServiceAPIRyanair.class);
 
 	@Autowired
 	@Qualifier("routeSearchServiceAPIRyanair")
@@ -47,7 +46,8 @@ public class FlightSearchServiceAPIRyanair implements FlightSearchService{
 	public List<Interconnection> flightSearch(String airportFrom, String airportTo, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime, int stops) throws RetryHTTPException {
 		checkArgument(departureDateTime.isBefore(arrivalDateTime), "Departure date must be greater than arrival date.");
-		logger.info("Search Routes!!");
+		logger.info("Search Flights: " + airportFrom + " to " + airportTo + ", " + departureDateTime + " - "
+				+ arrivalDateTime + " with " + stops);
 		List<Interconnection> result = new LinkedList<Interconnection>();
 
 		for (String route : routeSearch.getRoutes(airportFrom, airportTo, stops)) {
@@ -57,9 +57,22 @@ public class FlightSearchServiceAPIRyanair implements FlightSearchService{
 					resultByRoute);
 			result.addAll(resultByRoute);
 		}
+		// sort by stops
+		result.sort((o1, o2) -> o1.getStops() >= o2.getStops() ? 1 : -1);
 		return result;
 	}
-	
+
+	/**
+	 * Save in reouteInterconnections all interconnections. First get all months
+	 * between departuretime and arrivaltime and next calculate all legs.
+	 * 
+	 * @param departureDateTime
+	 * @param arrivalDateTime
+	 * @param codes
+	 * @param index
+	 * @param legs
+	 * @param routeInterconnections
+	 */
 	public void generateRouteInterconnections(LocalDateTime departureDateTime, LocalDateTime arrivalDateTime,
 			String[] codes, int index, List<Leg> legs, List<Interconnection> routeInterconnections) {
 
@@ -74,12 +87,23 @@ public class FlightSearchServiceAPIRyanair implements FlightSearchService{
 						codes, index + 1, legsByRoute, routeInterconnections);
 			}
 		} else {
+			// Check if exists all connections
 			if ((codes.length - 1) == legs.size()) {
 				routeInterconnections.add(new Interconnection(codes.length - 2, legs));
 			}
 		}
 	}
 
+	/**
+	 * Get all the legs between the dates of departure and arrival.
+	 * 
+	 * @param departureAirport
+	 * @param arrivalAirport
+	 * @param departureDateTime
+	 * @param arrivalDateTime
+	 * @param months
+	 * @return
+	 */
 	private List<Leg> getLegs(String departureAirport, String arrivalAirport, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime, Collection<Month> months) {
 		List<Leg> legs = new ArrayList<Leg>();
@@ -110,6 +134,5 @@ public class FlightSearchServiceAPIRyanair implements FlightSearchService{
 		}
 		return legs;
 	}
-
 
 }

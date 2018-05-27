@@ -2,6 +2,12 @@ package com.ryanair.flights.model;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * ApiError model.
+ * 
+ * @author victor
+ *
+ */
 public class ApiError {
 
 	private HttpStatus status;

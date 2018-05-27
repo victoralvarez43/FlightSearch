@@ -14,14 +14,14 @@ public class CacheController {
 
 	private static Log logger = LogFactory.getLog(CacheController.class);
 
-	
 	@Autowired
 	private CacheManager cacheManager;
-	
+
 	@GetMapping("/clean")
 	public void cleanRouteCache() {
-		cacheManager.getCacheNames().stream()
-		   .map(cacheManager::getCache)
-		   .forEach(c -> {c.clear(); logger.info("Clean cache: " + c.getName());});
+		cacheManager.getCacheNames().stream().map(cacheManager::getCache).forEach(c -> {
+			c.clear();
+			logger.info("Clean cache: " + c.getName());
+		});
 	}
 }

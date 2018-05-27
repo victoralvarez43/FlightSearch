@@ -36,7 +36,7 @@ public class MonthRestRepository implements MonthRepository<Month> {
 	public Month getMonth(String airportFrom, String airportTo, int year, int month) throws RetryHTTPException {
 		logger.debug("Get Year-Month " + year + "-" + month);
 		try {
-			logger.info("Call: " + endpoint + ", " + airportFrom + ", " + airportTo + ", " + year + ", " + month);
+			logger.info("Call: " + airportFrom + ", " + airportTo + ", " + year + ", " + month);
 			ResponseEntity<Month> response = restTemplate.getForEntity(endpoint, Month.class, airportFrom, airportTo,
 					year, month);
 			// order Days by day number

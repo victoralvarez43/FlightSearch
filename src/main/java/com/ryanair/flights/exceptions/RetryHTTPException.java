@@ -1,5 +1,11 @@
 package com.ryanair.flights.exceptions;
 
+/**
+ * Retry exceptions.
+ * 
+ * @author victor
+ *
+ */
 public class RetryHTTPException extends Exception{
 
 	/**

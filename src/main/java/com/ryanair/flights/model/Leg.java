@@ -5,19 +5,26 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.common.base.MoreObjects;
 
+/**
+ * Leg model.
+ * 
+ * @author victor
+ *
+ */
 public class Leg {
 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime departureDateTime;
-	
+
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime arrivalDateTime;
-	
+
 	private String departureAirport;
-	
+
 	private String arrivalAirport;
 
 	public Leg(LocalDateTime departureDateTime, LocalDateTime arrivalDateTime, String departureAirport,
@@ -58,6 +65,13 @@ public class Leg {
 
 	public void setArrivalAirport(String arrivalAirport) {
 		this.arrivalAirport = arrivalAirport;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper("Leg").add("departureDateTime", departureDateTime)
+				.add("arrivalDateTime", arrivalDateTime).add(departureAirport, departureAirport)
+				.add("arrivalAirport", arrivalAirport).toString();
 	}
 
 }

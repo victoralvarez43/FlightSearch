@@ -2,15 +2,19 @@ package com.ryanair.flights.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * MVC initializer.
+ * 
+ * @author victor
+ *
+ */
 public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-  // Load database and spring security configuration
   @Override
   protected Class<?>[] getRootConfigClasses() {
     return new Class[] { };
   }
 
-  // Load spring web configuration
   @Override
   protected Class<?>[] getServletConfigClasses() {
     return new Class[] { FlightSearchConfig.class };

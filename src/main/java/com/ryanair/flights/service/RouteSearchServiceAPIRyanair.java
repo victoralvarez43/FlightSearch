@@ -29,6 +29,17 @@ public class RouteSearchServiceAPIRyanair implements RouteSearchService {
 		return result;
 	}
 
+	/**
+	 * Get all routes between airportFrom and airportTo with determinate stops, and
+	 * save it in result set.
+	 * 
+	 * @param routes
+	 * @param airportFrom
+	 * @param airportTo
+	 * @param stops
+	 * @param result
+	 * @param ruta
+	 */
 	private void searchRoute(Map<String, List<Route>> routes, String airportFrom, String airportTo, int stops,
 			Set<String> result, String ruta) {
 		if (stops >= 0 && !ruta.contains(airportFrom)) {

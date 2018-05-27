@@ -7,20 +7,26 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Rest configuration.
+ * 
+ * @author victor
+ *
+ */
 @Configuration
 @PropertySource("classpath:restClient.properties")
 public class FligthSearchRestConfig {
 
-	@Value( "${rest.endpoint.timeout.connect}" )
+	@Value("${rest.endpoint.timeout.connect}")
 	private int connectTimeout;
-	
-	@Value( "${rest.endpoint.timeout.read}" )
+
+	@Value("${rest.endpoint.timeout.read}")
 	private int readTimeout;
-	
+
 	@Bean
 	public RestTemplate restTemplate() {
 		HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-		//httpRequestFactory.setConnectionRequestTimeout(connectTimeout);
+		// httpRequestFactory.setConnectionRequestTimeout(connectTimeout);
 		httpRequestFactory.setConnectTimeout(connectTimeout);
 		httpRequestFactory.setReadTimeout(readTimeout);
 

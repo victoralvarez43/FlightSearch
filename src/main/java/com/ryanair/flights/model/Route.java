@@ -1,5 +1,13 @@
 package com.ryanair.flights.model;
 
+import com.google.common.base.MoreObjects;
+
+/**
+ * Route model.
+ * 
+ * @author victor
+ *
+ */
 public class Route {
 
 	private String airportTo;
@@ -97,5 +105,11 @@ public class Route {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper("Route").add("airportTo", airportTo).add("airportFrom", airportFrom)
+				.add("connectingAirport", connectingAirport).add("group", group).add("newRoute", newRoute)
+				.add("seasonalRoute", seasonalRoute).add("operator", operator).toString();
+	}
 
 }

@@ -8,12 +8,18 @@ import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Global Configuration.
+ * 
+ * @author victor
+ *
+ */
 @Configuration
 @EnableWebMvc
 @EnableRetry
 @ComponentScan(basePackages = { "com.ryanair.flights.*" })
 @PropertySource("classpath:flightSearch.properties")
-@Import({FligthSearchRestConfig.class, FlightSearchCacheConfig.class})
+@Import({ FligthSearchRestConfig.class, FlightSearchCacheConfig.class })
 public class FlightSearchConfig implements WebMvcConfigurer {
 
 }

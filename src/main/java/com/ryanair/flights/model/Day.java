@@ -2,6 +2,14 @@ package com.ryanair.flights.model;
 
 import java.util.List;
 
+import com.google.common.base.MoreObjects;
+
+/**
+ * Day model.
+ * 
+ * @author victor
+ *
+ */
 public class Day {
 
 	private int day;
@@ -21,6 +29,11 @@ public class Day {
 
 	public void setFlights(List<Flight> flights) {
 		this.flights = flights;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper("Day").add("day", day).add("flights", flights).toString();
 	}
 
 }
